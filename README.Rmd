@@ -12,6 +12,11 @@ output:
       countIncrementalSlides: false
       ratio: "16:9"
     css: ["default", "default-fonts"]
+    md_extensions: +citations
+    pandoc_args: ["--citeproc"]
+bibliography: biblio.bib
+csl: apa.csl
+link-citations: true
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +43,7 @@ library(knitr)
 }
 .large { font-size: 130% }
 .medium { font-size: 110% }
-.small { font-size: 90% }
+.small { font-size: 80% }
 .tiny { font-size: 70% }
 .green { color: #2E8B57; }
 .blue { color: #4169E1; }
@@ -56,14 +61,14 @@ blockquote { border-left: 4px solid #4169E1; padding-left: 12px; color: #333; }
 
 .compact .remark-slide-content{
   /* menos relleno arriba/abajo de la slide */
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 /* Títulos más pegados al contenido */
 .compact h1, .compact h2, .compact h3{
-  margin-top: 0.15em;
-  margin-bottom: 0.25em;
+  margin-top: 0.1em;
+  margin-bottom: 0.15em;
 }
 
 /* Párrafos y listas con menos interlínea y márgenes */
@@ -88,6 +93,15 @@ blockquote { border-left: 4px solid #4169E1; padding-left: 12px; color: #333; }
 .compact li > img{
   margin: 0.1em 0 0.25em 0;
 }
+
+footnote{
+  position:absolute; 
+  bottom:8px; 
+  left:24px; 
+  font-size:70%; 
+  color:#666;
+}
+
 </style>
 
 
@@ -523,11 +537,13 @@ knitr::include_graphics("https://via.placeholder.com/400x300/3F51B5/white?text=G
 ]
 
 ---
+class: compact
 
 # Ecogeografía: Variación Fenotípica
 
 ## "Reglas" Ecogeográficas Clásicas
 
+.pull-left[
 ### 1. **Regla de Bergmann**
 - ↑ latitud = ↑ tamaño corporal
 - Termorregulación (relación superficie/volumen)
@@ -535,10 +551,12 @@ knitr::include_graphics("https://via.placeholder.com/400x300/3F51B5/white?text=G
 ### 2. **Regla de Allen**
 - ↑ latitud = ↓ tamaño de apéndices
 - Conservación de calor
-
+]
+.pull-right[
 ### 3. **Regla de Jordan**
 - ↑ latitud = ↑ número de vértebras
 - Peces: adaptación a temperatura
+]
 
 ---
 
@@ -548,7 +566,7 @@ knitr::include_graphics("https://via.placeholder.com/400x300/3F51B5/white?text=G
 
 ### Procedimiento General:
 
-1. **Datos de ocurrencia** + variables ambientales
+1. **Datos/registros de presencia/incidencia ("ocurrencias")** + variables ambientales
 2. **Análisis estadístico** de afinidades ambientales  
 3. **Modelado espacial** del ámbito fundamental
 4. **Incorporación** de factores históricos/bióticos
@@ -591,11 +609,12 @@ class: inverse, center, middle
 # 5. Síntesis y Conceptos Clave
 
 ---
+class: compact
 
 # Síntesis: Factores Limitantes
 
 ## Patrón General Emergente
-
+.pull-left[
 ### **Hipótesis Abiotic-Biotic**
 - **Latitudes altas**: Limitación por estrés abiótico
 - **Latitudes bajas**: Limitación por interacciones bióticas
@@ -603,11 +622,13 @@ class: inverse, center, middle
 ### **Gradientes Locales**
 - **Ambientes estresantes**: Dominan factores físicos
 - **Ambientes benignos**: Dominan interacciones biológicas
-
+]
+.pull-right[
 ### **Implicaciones**
 - Predicción de respuestas al cambio climático
 - Estrategias de conservación diferenciadas
 - Comprensión de gradientes de diversidad
+]
 
 ---
 
@@ -632,9 +653,11 @@ class: inverse, center, middle
 ]
 
 ---
+class: compact
 
 # Conexiones con Otras Áreas
 
+.small[
 .pull-left[
 ## Ecología (Smith & Smith)
 - **Poblaciones**: Crecimiento, regulación, metapoblaciones
@@ -654,29 +677,753 @@ class: inverse, center, middle
 - **Fragmentación**: Poblaciones fuente-sumidero
 - **Cambio global**: Modelado predictivo
 ]
-
+]
 ---
 
 class: center, middle
 
 # Preguntas y Discusión
 
-## ¿Qué factores creen que serán más importantes para limitar distribuciones en el contexto del cambio climático?
+## ¿Qué factores creen que serán más importantes para limitar distribuciones de una especie en el contexto del cambio climático?
 
-## ¿Cómo podemos usar el modelado de distribución para conservación en su región?
+## ¿Cómo podemos usar el modelado de distribución de especies para conservación en RD?
 
 ---
 
 class: center, middle, inverse
 
-# Próxima Clase
+# Distribución de Comunidades
 
-## Distribución de Comunidades
-### Definiciones, organización, patrones espacio-temporales
+---
 
-### Preparar: 
-- Lectura sobre biomas y comunidades
-- Ejemplos locales de tipos de vegetación
+class: compact, centered
+
+# ANTES DE COMENZAR: Definiciones importantes, relevantes en botánica pero extensibles a otros reinos\*
+
+.footnote[
+*Fuente (todas las definiciones): [https://mexbot.tripod.com/definiciones_importantes.htm](https://mexbot.tripod.com/definiciones_importantes.htm)
+]
+
+---
+
+class: compact
+
+.pull-left[
+
+### Abundancia
+
+.box-small-margin[
+Número total de individuos de una especie o especies que existe en un área, volumen, población o comunidad; abundancia absoluta; con frecuencia, en las plantas se mide como cobertura, área basal, densidad, etc. (véase Valores de Importancia).
+]
+
+### Área basal
+
+.box-small-margin[
+Es el área ocupada por secciones transversales de tallos a 1.3 m sobre el suelo (u otras medidas basales vegetales) por unidad de área de la superficie del terreno.
+]
+]
+
+.pull-right[
+
+### Biomasa de una especie
+
+.box-small-margin[
+Es la masa total (generalmente peso seco de materia orgánica) presente en un momento determinado por unidad de área de la superficie del terreno.
+]
+
+### Cobertura
+
+.box-small-margin[
+Es el porcentaje del área de la superficie del terreno (u otro sustrato) sobre el cual se encuentra follaje de una especie determinada.
+]
+]
+
+---
+
+class: compact
+
+.pull-left[
+
+### Densidad
+
+.box-small-margin[
+El número de individuos de una especie por unidad de superficie del área de terreno (u otra medida espacial).
+]
+
+### Diversidad alfa
+
+.box-small-margin[
+La composición florística dentro de un hábitat o comunidad particular.
+]
+]
+
+.pull-right[
+
+### Diversidad beta
+
+.box-small-margin[
+El cambio en la composición florística a lo largo de una cenoclina.
+]
+
+### Frecuencia
+
+.box-small-margin[
+Es el porcentaje de submuestras dentro de un cuadrante de muestreo mayor, en que una especie determinada está presente.
+]
+]
+
+---
+
+class: compact
+
+### Cenoclina
+
+.box-small-margin[
+Un gradiente en la comunidad vegetal. El cambio gradual en los valores de importancia de los diferentes componentes florísticos de la comunidad, que expresan los cambios ambientales correspondientes de un gradiente complejo. Por ejemplo, el área basal de cada especie en la comunidad  aumenta o disminuye concomitantemente con los cambios ambientales a lo largo del gradiente ambiental, según se acerque o aleje de los sitios de mayor éxito en la competencia con las otras especies.
+]
+
+---
+
+class: compact
+
+.pull-left[
+
+### Ecoclina
+
+.box-small-margin[
+Un gradiente complejo, junto con su cenoclina correspondiente, forman un gradiente de comunidades-y-ambientes (es decir, de ecosistemas), llamado ecoclina.
+]
+
+### Ecotipos
+
+.box-small-margin[
+Diferentes óptimos adaptativos en cuanto a la respuesta genética al ambiente. Gráficamente, se muestran como curvas bimodales o polimodales, conectadas o discontinuas. En la mayoría de los casos existen diferencias morfológicas entre los diferentes ecotipos de una especie.
+]
+]
+
+.pull-right[
+
+### Gradiente complejo
+
+.box-small-margin[
+Es un gradiente ambiental donde cambian simultáneamente varios factores ambientales diferentes a lo largo del mismo espacio. Por ejemplo, al aumentar la altitud en la ladera de una montaña, cambian también diferentes factores ambientales como la precipitación y la humedad, la temperatura y velocidad del viento, así como las características del suelo.  (v. cenoclina).
+]
+]
+
+---
+
+class: compact
+
+.pull-left[
+
+### Producción neta de una especie
+
+.box-small-margin[
+En cuanto a plantas, es el crecimiento total en peso seco (o su equivalente en términos de energía), o la producción de materia orgánica a través de la fotosíntesis, menos la respiración de las mismas plantas.
+]
+]
+
+.pull-right[
+
+### Valores de importancia
+
+.box-small-margin[
+Medidas que expresan en forma relativa la abundancia, o la conspicuidad, "la grandeza" o el vigor de una especie. Por ejemplo, la densidad, la cobertura o el área basal, la frecuencia o la biomasa o producción neta de una especie.
+]
+]
+
+---
+
+class: compact
+
+.pull-left[
+
+### Valores de importancia relativos
+
+.box-small-margin[
+Las medidas indicadas en la definición de valores de importancia para una especie, con frecuencia se dividen entre el total del valor de importancia de la misma clase obtenido para todas las especies de una muestra. Los porcentajes resultantes son los valores de importancia relativos.
+]
+]
+
+.pull-right[
+
+### Valores de importancia sintéticos
+
+.box-small-margin[
+Cuando se combinan dos o más valores de importancia. Por ejemplo, el Valor de importancia sintético de Wisconsin (Curtis y McIntosh 1951, Goff y Cottam 1967) suman, para cada especie, la densidad relativa, la frecuencia relativa y el área basal relativa.
+]
+]
+
+---
+
+class: compact
+
+### Bibliografía para las definiciones
+
+
+- Curtis, J. T. y R. P. McIntosh. 1951. An upland forest continuum in the prairie-forest border region of Wisconsin. Ecology 32: 476-496.
+
+
+- Goff, F. G. y G. Cottam 1967. Gradient analysis: the use of species and synthetic indices. Ecology 48: 793-806.
+
+
+- Lincoln, R. J., G. A. Boxshall y P. F. Clark. 1995. Diccionario de ecología, evolución y taxonomía. Fondo de Cultura Económica. México. 488 pp.
+
+- Whittaker, R. H. 1978. Direct gradient analysis. in: R. H. Whittaker (ed.). Ordination of Plant Communities. Dr. Junk. The Hague. pp. 7-50.
+
+---
+
+## AHORA SÍ, COMENCEMOS "DISTRIBUCIÓN DE COMUNIDADES".
+
+## Introducción
+
+Definiciones, algo arbitrarias pero útiles para separar conceptos:
+
+- **Población:** Grupo de individuos de la **misma especie** que viven en un área determinada.
+- **Comunidad:** Conjunto de **poblaciones de diferentes especies** que interactúan en un área.
+- **Hábitat:** **Entorno** "natural" donde vive una especie.
+- **Ecosistema:** **Comunidad** de seres vivos **y su entorno** físico interactuando como un sistema.
+- **Bioma:** **Gran región** caracterizada por un tipo específico de clima, flora y fauna.
+
+---
+
+## Introducción
+
+* **Distribución y abundancia** de una especie siempre resultan afectados por otras especies.
+
+* Debido a las interacciones entre organismos, normalmente las distribuciones de especies suelen ser **mutuamente excluyentes a escala local**, o tienden a ocurrir de forma conjunta en complejas comunidades ecológicas.
+
+* Las comunidades vistas como un superorganismo se atribuye a **Clements** (especies como células).
+
+* En contraste, la comunidad vista como unidad discreta e integrada, se atribuye a **Gleason**.
+
+---
+
+## Introducción (cont.)
+
+* Ambas corrientes hicieron aportes relevantes.
+    * Las comunidades exhiben **atributos como los de un individuo** ("productividad primaria total").
+    
+    * Por otra parte, las especies también varían en incidencia (*ocurrence*) y abundancia **como si fuesen organismos independientes** unos de otros.
+
+* Climas diferentes inducen tipos de __vegetación distintos__ (zonas de vida, biomas, ecorregiones).
+
+---
+
+## Introducción (cont.)
+
+* Ejemplos: ...
+
+* Consultar ["Ecoregion"](https://en.wikipedia.org/wiki/Ecoregion), versión en inglés. Aportaciones de Dasmann (1972) y @udvardybiogeographical
+
+* Consultar Mapa de tipos de regímenes bioclimáticos, @olson1998global @olson2001terrestrial
+
+* Consultar mapas modelos idealizados, pags. 15 y 39 de @bailey2014ecoregions.
+
+* Consultar Mapa de tipos de regímenes bioclimáticos, @camara2020tbrs
+
+---
+
+![](img/ecorregiones_olson_dinerstein.jpg)
+
+Tomado de @olson2001terrestrial
+
+---
+
+<img src="img/baileys_mar.jpg" width="85%">
+
+Tomado de @bailey2014ecoregions
+
+---
+
+<img src="img/baileys_tierra.jpg" width="85%">
+
+Tomado de @bailey2014ecoregions
+
+---
+
+<img src="img/mapa_trb_rca.jpg" width="75%">
+
+Tomado de @camara2020tbrs
+
+---
+
+## Introducción (cont.)
+
+* Mencionar/mostrar Hager y Zanoni (1993), mapas de Tolentino y Peña (1998) y Cano y Cano (2014)
+
+---
+
+.pull-left[
+```{r, out.width="90%"}
+knitr::include_graphics("img/inventario_vegetacion_y_uso_rd_portada_moscosoa.jpg")
+```
+]
+
+.pull-right[
+```{r, out.width="90%"}
+knitr::include_graphics("img/inventario_vegetacion_y_uso_rd_resumen.jpg")
+```
+]
+
+---
+
+<img src="img/inventario_vegetacion_y_uso_rd_mapa.jpg" width="90%">
+
+---
+class: center, middle, inverse
+
+## Comunidades y ecosistemas
+
+---
+
+## Comunidades y ecosistemas
+
+* Je je, __tremendo lío__, definiciones arbitrarias.
+
+* Las comunidades y los ecosistemas son los niveles de organización biótica y ecológica __más altos__, pero comúnmente se definen de forma arbitraria.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Comunidad
+
+* La comunidad consiste en el __conjunto de especies que viven en el mismo lugar__.
+
+* Un miembro de la comunidad puede definirse __taxonómicamente__ o por medio de atributos/rasgos __funcionales__ (e.g. formas de vida, dieta).
+
+* Dos atributos son recurrentemente estudiados en la comunidad: __estructura__ (atributos estáticos) y __funciones__ (atributos dinámicos).
+
+* Los límites se establecen __arbitrariamente__, aunque los __rasgos topográficos__ son usados también.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Ecosistemas
+
+* Incluye no sólo las especies que habitan en el lugar, sino también los __rasgos/atributos/características físicas__ del mismo, así como las interacciones entre los componentes bióticos y abióticos del sistema.
+
+* __Los ecosistemas no están aislados__, aunque lo parezcan. El ecosistema más grande y aislado del resto es la biosfera, pero dentro de ella, es difícil separar subunidades que se consideren absolutamente aisladas.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas
+
+* Cada __especie tiene un nicho, y el cómo se organizan__ para dar lugar a asociaciones complejas entre poblaciones, __es el objetivo último de la ecología__.
+
+* Dos rasgos fundamentales de las especies que influyen en la comunidad son su __masa/volumen corporal__ y su __estado trófico o condición trófica__.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Masa corporal
+
+* Su influencia sobre el ecosistema es significativamente alta.
+
+* A __mayor tamaño/masa, mayor consumo__ energético. La tasa de metabolismo basal es clave; $m=cM^{0.75}$, donde $m$ es la tasa de metabolismo basal, $M$ la masa corporal, $c$ una constante que varía entre grupos taxonómicos; el exponente $0.75$, que es la pendiente, es relativamente constante.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Masa corporal
+
+* Hay más especies de animales pequeños, y son igualmente más abundantes, que grandes.
+
+* Las __especies grandes__ (al menos en animales), tienden a tener __ámbitos geográficos amplios__.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Masa corporal
+
+* La __capacidad de carga__ del ambiente es limitada, por lo que los animales grandes tienden a aumentar su rango para compensar esta limitación.
+
+* Ver figuras 5.2 y 5.3, páginas 125 y 126 de @lomolino2006biogeography.
+
+---
+
+<img src="img/masa_corporal_metabolismo_basal_1.jpg"  height="90%" width="90%">
+
+Tomado de @lomolino2006biogeography
+
+---
+
+<img src="img/masa_corporal_metabolismo_basal_2.jpg"  height="70%" width="70%">
+
+Tomado de @lomolino2006biogeography
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Estado trófico
+
+* Se refiere a __cómo los organismos adquieren su energía__, y es el otro rasgo que influye significativamente en la comunidad.
+
+* El tamaño corporal tiene efecto sobre el estado trófico. Los __depredadores suelen ser más grandes que su presa__, a menos que la especie realice caza en manadas.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Estado trófico
+
+* Los organismos obtienen __su energía del sol__ (salvo contadas excepciones).
+
+* Las plantas, autótrofos, producen __compuestos orgánicos a partir de radiación solar__, dióxido de carbono, minerales y agua.
+
+* __Además de usarlo en su metabolismo, las plantas producen estos compuestos para otros organismos__ que se alimentan de ellos, y otros organismos se alimentan de estos últimos.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Estado trófico
+
+* El diseño de trayectorias unidireccionales de la energía que fluye entre especies y a través de comunidades se denomina __cadenas tróficas__. Los nodos de la misma se denominan __niveles tróficos__.
+
+* El primer nivel contiene plantas, o __productores primarios__. El segundo contiene herbívoros, o __consumidores primarios__. El tercero __carnívoros__ o consumidores, y así sucesivamente. Al final de las cadenas están los __descomponedores o detritívoros__.
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Estado trófico
+
+* Aunque la __energía fluye linealmente__, los trayectos que sigue la energía son muy variados. Un consumidor se alimenta comúnmnente de __varias especies__, y varios __descomponedores lo consumirán__, formando una red trófica (distintas cadenas interconectadas; ver figura 5.5, página 127 de @lomolino2006biogeography).
+* La energía fluye a través de las comunidades siguiendo la __primera__ (la energía ni se crea ni se destruye) y la __segunda ley de la termodinámica__ (a mayor conversión de la energía, menor su capacidad de producir trabajo, su caos/entropía aumenta).
+
+---
+
+## Comunidades y ecosistemas (cont.)
+
+### Consideraciones energéticas (cont.)
+
+#### Estado trófico
+
+* Capacidad de carga: __energía utilizable de un hábitat__. La capacidad de carga de un hábitat para estados tróficos altos normalmente es baja.
+
+* Pirámides de flujo energético. Estados tróficos más altos disponen de menor cantidad de energía.
+
+---
+
+![](img/red-trofica.png)
+Tomado de @lomolino2006biogeography
+
+---
+
+![](img/piramides-ecologicas-de-flujo-energetico.png)
+Tomado de @lomolino2006biogeography
+
+---
+class: center, middle, inverse
+
+## Distribución de comunidades en espacio y tiempo
+
+---
+
+## Distribución de comunidades en espacio y tiempo
+
+### Patrones espaciales
+
+* Si somos capaces de identificar borde (__ecotono__) entre dos hábitat muy parecidos, teóricamente debería encontrarse una __mayor riqueza númerica de especies__ en el ecotono que en cualquiera de los hábitat que éste separa.
+
+* __Cenoclina__ (*coenocline*): patrones de distribución de comunidades a lo largo de un __gradiente ambiental o geográfico__.
+
+---
+
+![](img/cenoclinas.png)
+Tomado de @lomolino2006biogeography
+
+---
+
+![](img/cenoclinas-gradiente-humedad.png)
+Tomado de @lomolino2006biogeography
+
+---
+
+![](img/cenoclinas-pinus-california.png)
+Tomado de @lomolino2006biogeography
+
+---
+
+.pull-left[
+<img src="img/gradiente-aves-martin-garcia.png"  height="100%">
+]
+.pull-right[
+Tomado de @franklin2019changing
+]
+
+---
+
+![](img/gradiente-altitudinal-riqueza-especies-lagartos.png)
+
+---
+
+.pull-left[
+<img src="img/gradiente-altitudinal-especies-arboles-cordillera-central.png"  height="70%" width="70%">
+]
+.pull-right[
+Tomado de @martin2007tropical
+]
+
+---
+
+![](img/cliserie-vegetacion-rca.png)
+Tomado de @camara1997republica
+
+---
+class: center, middle, inverse
+
+## Patrones temporales
+
+---
+
+## Patrones temporales
+
+* __Cowles, Clements y Gleason__ realizaron aportaciones que sentaron las bases de la __sucesión__.
+
+* __Sucesión__: proceso de cambio o reemplazo de especies o comunidades ecológicas enteras en el tiempo.
+
+* La sucesión es un proceso común en cualquier ecosistema. En los ecosistemas las __alteraciones pueden ser repetidas, y eliminar comunidades enteras__.
+
+---
+
+* Clements entendía que la comunidad era como un __organismo que "nace, crece, madura y muere"__. 
+
+* Propuso el concepto de "__comunidades serales__" o seras, como estadíos intermedios del ecosistema que siguen un __patrón predecible y determinista__, para converger en una __comunidad clímax__ (propuesto también por Clements) o estable con su ambiente (principalmente el factor clima), con independencia de sus condiciones de partida. 
+
+---
+
+* Clements dominó durante mucho tiempo el concepto de sucesión y sus derivados, como son sucesión primaria y secundaria.
+
+* __Sucesión primaria__: cuando __la alteración__ (como un glaciar o una erupción volcánica) __quita suelo y materia orgánica__ (ambientes terrestres).
+
+* __Sucesión secundaria__: cuando __la alteración__ quita todos los seres vivos pero __deja indicios del ecosistema anterior__ (e.g. individuos sobrevientes, semillas).
+
+---
+
+* La __sucesión__ en ecología sigue siendo un __campo de batalla__ entre quienes estudian patrones temporales.
+
+* El debate __Clements-Gleason__ es el más temprano en una larga historia sobre cómo se produce la sucesión.
+
+* En contraposición a la visión predecible y determinista de Clements, __Gleason__ apuntó que había una __gran diversidad de etapas serales y comunidades clímax (o climácicas) alternas__.
+
+* Como corolario, Gleason señaló que la sucesión es un proceso dirigido por __interacciones entre especies y modificaciones locales producidas por la propia comunidad__.
+
+---
+
+## Patrones temporales (cont.)
+
+### Paleoecología
+
+* La biota regional es influenciada por __cambios climáticos, edáficos y físico-químicos en el agua__ que ocurren en el tiempo.
+
+* "Tiempo" puede abarcar desde __ayer hasta centenares de millones de años__.
+
+* El estudio del registro fósil a partir de la __paleontología__, es determinante y de uso común en estudios paleoecológicos
+
+* Los estudios con __polen y roedores__ son muy utilizados en cambios geológicos recientes.
+
+---
+
+<img src="img/diagrama-polen-kennedy.png"  height="80%" width="80%">
+
+Tomado de @kennedy20064000
+
+---
+
+class: center, middle, inverse
+
+## Biomas terrestres
+
+---
+
+<img src="img/biomas-terrestres.png"  height="60%" width="60%">
+
+Tomado de @lomolino2006biogeography
+
+---
+
+
+<img src="img/climografico-vegetacion-clima.png"  height="90%" width="90%">
+
+Tomado de @lomolino2006biogeography
+
+---
+class: center, middle, inverse
+
+## Biomas tropicales
+
+---
+
+## Biomas tropicales
+
+[Ver presentación separada media/tropicalidad_biomas_tropicales.odp](media/tropicalidad_biomas_tropicales.odp)
+
+* Bosque lluvioso tropical
+
+* Bosque deciduo o semideciduo tropical
+
+* Matorral xerófilo / monte espinoso
+
+* Sabana
+
+---
+class: center, middle, inverse
+
+## Biomas no tropicales
+
+---
+
+<img src="img/biomas-terrestres.png"  height="60%" width="60%">
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Desiertos cálidos y semidesiertos:
+
+    * Ocurren en clima templado.
+    
+    * 30° a 40° N y S.
+    
+    * Menos de 250 mm de lluvia anual.
+    
+    * Déficit hídrico (mayor evaporación que precipitación).
+    
+    * Típicamente, la vegetación, cuando la hay, es dispersa y se compone de plantas suculentas.
+
+---
+
+<img src="img/desierto.png"  height="70%" width="70%">
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Monte esclerófilo:
+
+    * Ocurren en clima templado.
+    
+    * Lluvia invernal moderada pero verano seco y largo.
+    
+    * Plantas esclerófilas (hoja dura, pequeña, coriácea), y pueden existir coníferas.
+
+---
+
+![](img/matorral_esclerofilo.png)
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Bosque siempreverde subtropical
+
+    * Ocurren en clima templado.
+    
+    * Bosques de encino(roble) y lauráceas.
+    
+    * Reciben más de 1500 mm de precipitación anual.
+    
+    * La temperatura promedio anual no puede ser de menos de 13°C, ni pueden ocurrir heladas severas.
+    
+---
+
+![](img/bosque-siempre-verde-subtropical.png)
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Bosque templado deciduo
+
+    * Ocurren en clima templado, pero comúnmente donde hay suficiente agua durante el verano para soportar los árboles grandes.
+    
+    * Los árboles pierden la hoja desde el otoño, y permanecen sin ella en invierno; rebrotan en primavera.
+    
+    * Estos bosques varían mucho en su composición y su estructura.
+    
+    * El sotobosque puede ser muy denso y diverso.
+
+---
+
+![](img/bosque-templado-deciduo.png)
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Bosque templado lluvioso
+
+---
+
+![](img/bosque-templado-lluvioso.png)
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Herbazales templados
+
+---
+
+![](img/herbazal-templado.png)
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Bosque boreal (taiga)
+
+---
+
+<img src="img/bosque-boreal.png"  height="50%" width="50%">
+
+---
+
+## Biomas no tropicales (cont.)
+
+* Tundra
+
+---
+
+![](img/tundra.png)
+
+---
+class: center, middle, inverse
+
+## Comunidades acuáticas
+
+---
+
+![](img/regiones-biogeograficas-marinas.png){width=85%}
+
+---
+
+<img src="img/produccion-primaria-biomasa-por-biomas.png"  height="90%" width="90%">
+
 
 ---
 
@@ -689,3 +1436,9 @@ class: center, middle
 
 ### Material disponible en:
 [https://biogegrafia-master.github.io/distribucion-dinamica-evolucion-biodiversidad/README.html](https://biogegrafia-master.github.io/distribucion-dinamica-evolucion-biodiversidad/README.html)
+
+---
+
+# Referencias
+
+<div id="refs"></div>
